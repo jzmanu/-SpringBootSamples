@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<!-- 点击变色同时其他元素恢复效果 -->
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="UTF-8">
+		<title>Spring Boot I18n Sample.</title>
+
+		<script>
+			/**
+			 * 页面加载完成后调用
+			 */
+			onload = function() {
+				let href = window.location.toString();
+				let suffix = href.substring(href.length - 2, href.length);
+				let lang = document.getElementsByClassName("lang");
+				console.log("--suffix--" + suffix);
+				switch (suffix) {
+					case "CN":
+						setStatus(lang[0], lang[1], lang[2]);
+						break;
+					case "TW":
+						setStatus(lang[1], lang[0], lang[2]);
+						break;
+					case "US":
+						setStatus(lang[2], lang[1], lang[0]);
+						break;
+					default:
+						setStatus(lang[0], lang[1], lang[2]);
+				}
+			};
+
+			/**
+			 * 设置语言标签状态
+			 * @param show 已选择的语言标签
+			 * @param def1 未选择的语言标签
+			 * @param def2 未选择的语言标签
+			 */
+			function setStatus(show, def1, def2) {
+				show.style.color = "rgb(0,0,255)";
+				def1.style.color = "rgb(0,0,0)";
+				def2.style.color = "rgb(0,0,0)";
+			}
+		</script>
+	</head>
+	<body>
+		<h3 th:text="#{home.title}">default</h3>
+		<p style="font-size: 12px">
+			<a class="lang" href="i18n?lang=zh_CN"> 简体中文 </a>|
+			<a class="lang" href="i18n?lang=zh_TW"> 繁体中文 </a>|
+			<a class="lang" href="i18n?lang=en_US"> English</a>
+		</p>
+	</body>
+</html>
