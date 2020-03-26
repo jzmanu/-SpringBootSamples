@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<!--必须加入thymeleaf的命名空间-->
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>thymeleaf</title>
+    <!--开启CSS内联-->
+    <style th:inline="css">
+        /*设置idName对应id的元素内字体的颜色*/
+        #[[${idName}]]{
+            color:/*[(${color})]*/ #0000FF;
+        }
+    </style>
+
+    <!--开启javascript内联-->
+    <script th:inline="javascript">
+        function gzhName() {
+            // 输出未转义的字符,出错
+            // let gzh = [(${gzh})];
+            // js获取后端传入的名称为gzh的值
+            let gzh = [[${gzh}]];
+            console.log("gzhName：" + gzh);
+            let span = document.getElementsByClassName("jsInline");
+            span[0].innerHTML = gzh.toString();
+
+            // javascript自然模板
+            let name = /*[[${name}]]*/ "测试";
+            console.log("name：" + name);
+        }
+    </script>
+</head>
+
+<body>
+
+<ul>
+    <li> 表达式
+        <ul th:object="${user}">
+            <!--消息表达式-->
+            <li>消息表达式：<span th:text="#{home.title}">Hello World!</span></li>
+
+            <!--变量表达式-->
+            <li>变量表达式：<span th:text="${name}">Hello World!</span></li>
+
+            <!--选择变量表达式-->
+            <li>选择变量表达式：<span th:text="*{username}">Hello World!</span></li>
+            <li>选择变量表达式：<span th:text="${user.username}">Hello World!</span></li>
+
+            <!--链接表达式-->
+            <li>链接表达式：<a href="default.html" th:href="@{default.html}">Default Page.</a></li>
+            <li>链接表达式：<a href="default.html" th:href="@{http://localhost:8080/{path}/i18n}">I18n Page.</a></li>
+            <li>链接表达式：<a href="default.html" th:href="@{http://localhost:8080/message(id=${id})}">Message.</a>
+            </li>
+        </ul>
+    </li>
+
+    <li>文字
+        <ul th:object="${user}">
+            <!--文本-->
+            <li><span th:text="'text'">Default</span></li>
+
+            <!--数字-->
+            <li><span th:text="2020">0</span></li>
+
+            <!--布尔值-->
+            <!--Thymeleaf模板处理-->
+            <li><span th:if="${flag} == false" th:text="false">true</span></li>
+            <!--OGNL/SpringEL引擎处理-->
+            <li><span th:if="${flag == false}" th:text="false">true</span></li>
+
+            <!--null-->
+            <li><span th:if="${user} != null" th:text="'User object is not null.'">Default.</span>
+            </li>
+
+            <!--可以省略单引号-->
+        </ul>
+    </li>
+
+    <li>字符串拼接
+        <ul>
+            <!--字符串拼接-->
+            <!--1.使用+号-->
+            <li><span>使用+号: </span><span th:text="'My name is '+${name}+'!'">Default</span></li>
+            <!--2.使用|号-->
+            <li><span>使用| 号: </span><span th:text="|My name is ${name}!|"></span></li>
+        </ul>
+    </li>
+
+    <li>条件比较
+        <ul>
+            <!--条件比较--value=10-->
+            <li>gt(>)、lt(<)、ge(>=)、le(<=)、not(!)、eq(==)、neq/ne(!=)</li>
+            <li th:if="${value} gt 9"><span>gt(>)   </span><span
+                    th:text="|${value}|+'>9'">Default</span></li>
+            <li th:if="${user} ne null"><span>ne(!=)   </span><span
+                    th:text="'User object is not null!'">Default</span></li>
+            <!--if/unless-->
+            <li th:if="${value} gt 9"><span>if   </span><span th:text="|${value}|+'>9成立时才执行'">Default</span>
+            </li>
+            <li th:unless="${value} gt 11"><span>unless   </span><span
+                    th:text="|${value}|+'>11不成立时才执行'">Default</span></li>
+        </ul>
+    </li>
+
+    <li>循环
+        <ul>
+            <li><span>不带索引</span>
+                <table>
+                    <tr th:each="user:${list}">
+                        <td th:text="${user.userId}"></td>
+                        <td th:text="${user.username}"></td>
+                    </tr>
+                </table>
+            </li>
+
+            <li><span>带索引</span>
+                <table>
+                    <tr th:each="user,start:${list}">
+                        <td th:text="${start.index}"></td>
+                        <td th:text="${user.userId}"></td>
+                        <td th:text="${user.username}"></td>
+                    </tr>
+                </table>
+            </li>
+        </ul>
+    </li>
+
+    <li>switch多分支
+        <ul>
+            <li th:switch="${name}">
+                <p th:case="jzman">He name is jzman.</p>
+                <p th:case="manu">He name is manu.</p>
+                <!--default-->
+                <p th:case="*">others</p>
+            </li>
+        </ul>
+    </li>
+
+    <li>内联
+        <ul>
+            <!--表达式内联-->
+            <!--对应表达式的值按照文本进行处理，不会处理HTML标签效果-->
+            <li><span>表达式内联：</span>公众号名称是[[${gzh}]]</li>
+            <!--对应表达式的值按照不按文本进行处理，会处理带HTML标签效果-->
+            <li><span>表达式内联：</span>公众号名称是[(${gzh})]</li>
+
+            <!--javascript内联-->
+            <li><span>javascript内联：</span><button onclick="gzhName()">从js获取变量值</button><span class="jsInline"></span></li>
+
+            <!--CSS内联-->
+            <li><span>CSS内联：</span><span id="css">测试CSS内联</span></li>
+        </ul>
+    </li>
+
+    <li>其他表达式
+        <ul>
+            <!--?:操作符：先判断前面表达式是否为null,如果为null则使用后面表达式的值，反之-->
+            <li><span>?:操作符：</span><span th:text="${name} ?: 'default'">Default</span></li>
+            <!--三目运算符表示-->
+            <li><span>三目操作符：</span><span
+                    th:text="${name} ne null ? ${name}:'default'">Default</span></li>
+            <!--_操作符：表示不做任何操作-->
+            <li><span>_操作符：</span><span th:text="${test} ?: _">Default</span></li>
+        </ul>
+    </li>
+</ul>
+</body>
+</html>
