@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<table>
+    <tr>
+        <th>NAME</th>
+        <th>PRICE</th>
+        <th>COMMENT</th>
+    </tr>
+    <!--移除所在标签以及所有的子标签-->
+    <tr th:remove="all">
+        <td>A</td>
+        <td>1</td>
+        <td>AA</td>
+    </tr>
+    <!--不移除所在标签，只移除对应的子标签-->
+    <tr th:remove="body">
+        <td>B</td>
+        <td>2</td>
+        <td>BB</td>
+    </tr>
+    <!--只移除所在标签，不删除其子标签-->
+    <tr th:remove="tag">
+        <td>C</td>
+        <td>3</td>
+        <td>CC</td>
+    </tr>
+    <!--移除所在标签除第一个之外的所有子标签-->
+    <tr th:remove="all-but-first">
+        <td>D</td>
+        <td>4</td>
+        <td>DD</td>
+    </tr>
+    <!--无任何移除操作-->
+    <tr th:remove="none">
+        <td>E</td>
+        <td>5</td>
+        <td>EE</td>
+    </tr>
+</table>
+</body>
+</html>

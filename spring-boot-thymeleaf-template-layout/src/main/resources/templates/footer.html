@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Footer</title>
+</head>
+<body>
+    <!--定义布局片段-->
+    <div th:fragment="copy">
+        &copy; 2020 躬行之
+    </div>
+
+    <div th:fragment="head">
+        <h4>躬行之</h4>
+    </div>
+    <div id="head">
+        <p>在没有定义th:fragment的情况下使用片段表达式--id</p>
+    </div>
+    <div class="head">
+        <p>在没有定义th:fragment的情况下使用片段表达式--class</p>
+    </div>
+    <div >
+        <span>在没有定义th:fragment的情况下使用片段表达式--span</span>
+    </div>
+
+    <!--在模板片段中添加参数-->
+    <div th:fragment="frag(name)" th:assert="${!#strings.isEmpty(name)}">
+        <p th:text="公众号名称+':'+${name}">Default</p>
+    </div>
+
+</body>
+</html>

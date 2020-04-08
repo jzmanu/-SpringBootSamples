@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Template Layout.</title>
+</head>
+<body>
+
+    <!--引入footer模板的所有片段-->
+    <div th:insert="~{::content}"></div>
+    <p>------引入当前模板的所有片段------</p>
+    <!--引入当前模板的所有片段-->
+    <div th:insert="~{footer}"></div>
+
+    <p>------在没有定义th:fragment的情况下使用片段表达式------</p>
+    <!--在没有定义th:fragment的情况下使用片段表达式-->
+    <div th:insert="~{footer::#head}"></div>
+    <div th:insert="~{footer::.head}"></div>
+    <div th:insert="~{footer::span}"></div>
+
+    <p>------引入模板片段------</p>
+    <!--引入模板片段-->
+    <div th:insert="~{footer::copy}"></div>
+    <!--省略大括号-->
+    <div th:insert="footer::copy"></div>
+
+    <p th:fragment="content">Home Content</p>
+
+    <!--th:insert、th:replace、th:include的区别-->
+    <p>------th:insert、th:replace、th:include的区别---</p>
+    <!--直接插入模板片段-->
+    <div id="insert" th:insert="~{footer::copy}">insert</div>
+    <!--直接替换当前片段-->
+    <div id="replace" th:replace="~{footer::copy}">replace</div>
+    <!--直接插入指定片段的内容到当前片段中-->
+    <div id="include" th:include="~{footer::copy}">include</div>
+
+    <!--参数化模板片段-->
+    <p>-----参数化模板片段-----</p>
+    <div th:insert="~{footer::frag(${gzh})}"></div>
+    <!--这种写法如果有多个参数，顺序可以变化-->
+    <div th:insert="~{footer::frag(name=${gzh})}"></div>
+
+    <!--~{}表示空片段-->
+    <!--"-"{}表示空操作-->
+
+</body>
+</html>
+
