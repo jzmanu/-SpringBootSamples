@@ -37,8 +37,8 @@ public class StudentRepositoryImpl implements IStudentRepository {
             jdbcTemplate = primaryJdbcTemplate;
         }
 
-        jdbcTemplate.update("INSERT INTO student(name,password,age) values(?,?,?) ",
-                student.getName(), student.getPassword(), student.getAge());
+        jdbcTemplate.update("INSERT INTO student(name,grade,age) values(?,?,?) ",
+                student.getName(), student.getGrade(), student.getAge());
     }
 
     @Override
@@ -49,8 +49,8 @@ public class StudentRepositoryImpl implements IStudentRepository {
 
     @Override
     public void update(Student student) {
-        primaryJdbcTemplate.update("UPDATE student SET name=?,password=?,age=? WHERE id=?",
-                student.getName(), student.getPassword(), student.getAge(), student.getId());
+        primaryJdbcTemplate.update("UPDATE student SET name=?,grade=?,age=? WHERE id=?",
+                student.getName(), student.getGrade(), student.getAge(), student.getId());
     }
 
     @Override
@@ -72,7 +72,7 @@ public class StudentRepositoryImpl implements IStudentRepository {
             Student student = new Student();
             student.setId(rs.getLong("id"));
             student.setName(rs.getString("name"));
-            student.setPassword(rs.getString("password"));
+            student.setGrade(rs.getString("grade"));
             student.setAge(rs.getInt("age"));
             return student;
         }

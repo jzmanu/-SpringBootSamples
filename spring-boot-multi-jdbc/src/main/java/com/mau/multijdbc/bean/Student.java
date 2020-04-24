@@ -8,22 +8,22 @@ package com.mau.multijdbc.bean;
 public class Student {
     private long id;
     private String name;
-    private String password;
+    private String grade;
     private int age;
 
     public Student() {
     }
 
-    public Student(String name, String password, int age) {
+    public Student(String name, String grade, int age) {
         this.name = name;
-        this.password = password;
+        this.grade = grade;
         this.age = age;
     }
 
-    public Student(long id,String name, String password, int age) {
+    public Student(long id,String name, String grade, int age) {
         this.id = id;
         this.name = name;
-        this.password = password;
+        this.grade = grade;
         this.age = age;
     }
 
@@ -43,12 +43,12 @@ public class Student {
         this.name = name;
     }
 
-    public String getPassword() {
-        return password;
+    public String getGrade() {
+        return grade;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setGrade(String grade) {
+        this.grade = grade;
     }
 
     public int getAge() {
@@ -64,7 +64,7 @@ public class Student {
         return "Student{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", password='" + password + '\'' +
+                ", grade='" + grade + '\'' +
                 ", age=" + age +
                 '}';
     }
