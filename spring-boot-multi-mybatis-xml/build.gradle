@@ -1,0 +1,36 @@
+plugins {
+    id 'org.springframework.boot' version '2.2.6.RELEASE'
+    id 'io.spring.dependency-management' version '1.0.9.RELEASE'
+    id 'java'
+}
+
+group = 'com.manu'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '1.8'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    // myBaits
+    // http://mybatis.org/spring-boot-starter/mybatis-spring-boot-autoconfigure/index.html
+    implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.1.1'
+
+    // mysql驱动
+    runtime("mysql:mysql-connector-java")
+
+    // 热部署
+    implementation("org.springframework.boot:spring-boot-devtools:2.0.2.RELEASE")
+
+    // junit
+    implementation 'junit:junit:4.12'
+    testImplementation('org.springframework.boot:spring-boot-starter-test') {
+        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+    }
+}
+
+test {
+    useJUnitPlatform()
+}
